@@ -44,6 +44,14 @@ def split_by_common_groups(
     sentences: list[str],
     common_groups: list[str] | None = None,
 ) -> npt.NDArray[np.str_]:
+    """
+    Splits sentences by common groups.
+
+    :param sentences:  List of sentences to split.
+    :param common_groups:  List of common groups to split by. If None, it will be calculated.
+    :return:  Matrix of segments of sentences.
+    """
+
     if not common_groups:
         common_groups = find_common_groups(sentences=sentences)
 
@@ -65,6 +73,8 @@ def split_by_common_groups(
 
 
 def find_common_groups(sentences: list[str]) -> list[str]:
+    """Finds groups that exists in every sentence."""
+
     if not sentences:
         return []
 
@@ -87,6 +97,11 @@ def find_common_groups(sentences: list[str]) -> list[str]:
 
 
 def generate_substrings(string: str, start: int) -> Generator[str, None, None]:
+    """
+    Generate all substrings of a string starting from a given index and only this index.
+    Order is from longest to shortest.
+    """
+
     sentence_length = len(string)
     for end in range(sentence_length, start, -1):
         yield string[start:end]
