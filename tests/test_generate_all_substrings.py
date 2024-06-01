@@ -1,6 +1,6 @@
 import pytest
 
-from generate_substrings import generate_substrings
+from generate_substrings import generate_all_substrings
 
 
 @pytest.mark.parametrize(
@@ -15,5 +15,5 @@ from generate_substrings import generate_substrings
     ],
 )
 def test_generate_all_substrings(string: str, expected_substrings: list[str]) -> None:
-    substrings = generate_substrings(string)
+    substrings = generate_all_substrings(string)
     assert list(substrings) == expected_substrings

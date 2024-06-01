@@ -1,0 +1,6 @@
+services:
+  regex-finder:
+    build:
+      context: .
+    volumes:
+      - ./:/code

@@ -1,31 +1,17 @@
-def create_substrings(string: str, start: int) -> list[str]:
-    sentence_length = len(string)
-    return [string[start:end] for end in range(sentence_length, start, -1)]
+from automata.fa.dfa import DFA
+from automata.fa.nfa import NFA
+
+from common_groups import calculate_exact_regex
 
 
-def matches_all_sentences(substring: str, sentences: list[str]) -> bool:
-    return all(substring in sentence for sentence in sentences)
+def calculate_dfa(sentences: list[str]) -> None:
+    regex = calculate_exact_regex(sentences=sentences)
+    print(f"Regex: {regex}")
+    nfa = NFA.from_regex(regex=regex)
+    dfa = DFA.from_nfa(target_nfa=nfa)
+    dfa = dfa.minify()
+    dfa.show_diagram(path="dfa.png")
 
 
-def find_common_groups(sentences: list[str]) -> list[str]:
-    if not sentences:
-        return []
-
-    shortest_sentence = min(sentences, key=len)
-    shortest_sentence_length = len(shortest_sentence)
-
-    common_groups: list[str] = []
-
-    i = 0
-    while i < shortest_sentence_length:
-        i_index_substrings = create_substrings(string=shortest_sentence, start=i)
-
-        for substring in i_index_substrings:
-            if matches_all_sentences(substring=substring, sentences=sentences):
-                common_groups.append(substring)
-                i += len(substring)
-                break
-
-        i += 1
-
-    return common_groups
+if __name__ == "__main__":
+    calculate_dfa(["abcd", "abcbcd", "abcabcd"])

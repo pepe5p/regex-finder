@@ -1,7 +1,7 @@
 from typing import Generator
 
 
-def generate_substrings(string: str) -> Generator[list[str], None, None]:
+def generate_all_substrings(string: str) -> Generator[list[str], None, None]:
     length = len(string)
     for i in range(length):
         i_index_substrings = []

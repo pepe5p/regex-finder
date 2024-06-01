@@ -1,8 +1,11 @@
-BASH=bash -l -c
-PROJECT=regex-finder
-
 .PHONY: Makefile
+CONTAINER_NAME := regex-finder
 
+# Docker-related and running stuff inside docker:
+dc/% dc_%:  ### Run any action inside docker (replace % with any action from below)
+	docker-compose run --rm ${CONTAINER_NAME} make $*
+
+# Run all
 all: check test ### Run all checks and tests (lints, mypy, tests...)
 
 all_ff: check_ff test ### Run all checks and tests, but fail on first that returns error (lints, mypy, tests...)
